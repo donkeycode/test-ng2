@@ -1,0 +1,1 @@
+FROM https://github.com/marmelab/admin-on-rest/blob/master/src/rest/
