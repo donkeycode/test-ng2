@@ -107,6 +107,8 @@
     "exports-loader": "^0.6.3",
     "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "~2.0.0-rc.3",
+    "fakerest": "^2.0.0",
+    "fetch-mock": "^5.9.4",
     "file-loader": "^0.10.0",
     "find-root": "^1.0.0",
     "gh-pages": "^0.12.0",
