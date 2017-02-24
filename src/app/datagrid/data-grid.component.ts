@@ -23,15 +23,13 @@ export class DataGridComponent implements AfterContentInit, OnInit {
 
   public ngOnInit() {
     let restProvider = SimpleRestProvider('http://localhost:3000');
-    
+
     let results = restProvider(GET_LIST, this.objects, {
       pagination: { page: 1, perPage: 10 },
       sort: { field: 'id', order: 'ASC' }
     }).then((results) => {
       this.rows = results.data;
     });
-
-    console.log(results);
   }
 
   public ngAfterContentInit() {
