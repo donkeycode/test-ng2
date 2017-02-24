@@ -1,6 +1,12 @@
 // App
 export * from './app.module';
 
+import { Configurator } from './datagrid/configurator';
+
+Configurator.setConfig({
+    apiUrl: 'http://localhost:3000'
+});
+
 import FakeRest from 'fakerest';
 import fetchMock from 'fetch-mock';
 

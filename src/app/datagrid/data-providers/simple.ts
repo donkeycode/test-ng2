@@ -41,7 +41,7 @@ export default (apiUrl, httpClient = fetchJson) => {
                 range: JSON.stringify([(page - 1) * perPage, (page * perPage) - 1]),
                 filter: JSON.stringify(params.filter),
             };
-            url = `${apiUrl}/${resource}`//?${queryParameters(query)}`;
+            url = `${apiUrl}/${resource}?${queryParameters(query)}`;
             break;
         }
         case GET_ONE:

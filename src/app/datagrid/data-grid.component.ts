@@ -1,7 +1,7 @@
 import { Component, AfterContentInit, ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
 import { ColumnComponent } from './column.component';
-import SimpleRestProvider from './data-providers/simple';
 import { GET_LIST } from './data-providers/types';
+import { Configurator } from './configurator';
 
 @Component({
   selector: 'data-grid', 
@@ -11,6 +11,10 @@ export class DataGridComponent implements AfterContentInit, OnInit {
   @ContentChildren(ColumnComponent) private cols: QueryList<ColumnComponent>;
 
   @Input() private objects: string;
+
+  @Input('api-url') private apiUrl: string;
+
+  @Input() private source;
 
   public columns: ColumnComponent[];
 
@@ -22,14 +26,7 @@ export class DataGridComponent implements AfterContentInit, OnInit {
   }
 
   public ngOnInit() {
-    let restProvider = SimpleRestProvider('http://localhost:3000');
-
-    let results = restProvider(GET_LIST, this.objects, {
-      pagination: { page: 1, perPage: 10 },
-      sort: { field: 'id', order: 'ASC' }
-    }).then((results) => {
-      this.rows = results.data;
-    });
+    this.connectRest();
   }
 
   public ngAfterContentInit() {
@@ -42,6 +39,17 @@ export class DataGridComponent implements AfterContentInit, OnInit {
     this.columnsSubscription = this.cols.changes.subscribe(() => {
       this.initColumns();
       this.changeDetector.markForCheck();
+    });
+  }
+
+  private connectRest() {
+    let restProvider = this.source || Configurator.getRestProvider()(this.apiUrl || Configurator.apiUrl);
+    let results = restProvider(GET_LIST, this.objects, {
+      pagination: { page: 1, perPage: 10 },
+      sort: { field: 'id', order: 'ASC' },
+      filter: {}
+    }).then((results) => {
+      this.rows = results.data;
     });
   }
 
