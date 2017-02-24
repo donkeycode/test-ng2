@@ -29,4 +29,6 @@ export class TemplatesProvider {
 // Register some templates
 TemplatesProvider.set('default', 'headerTemplate', '{{ column.translationKey }}__TODO');
 TemplatesProvider.set('default', 'bodyTemplate', '{{ item[column.mappedOn] }}');
+TemplatesProvider.set('default', 'filterTemplate', '<input type="text" [name]="column.mappedOn" />');
+
 TemplatesProvider.set('html', 'bodyTemplate', '<div [innerHTML]=item[column.mappedOn]><</div>');

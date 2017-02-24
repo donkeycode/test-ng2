@@ -5,6 +5,8 @@ import { DataGridComponent } from './data-grid.component';
 import { ColumnComponent } from './column.component';
 import { HeadersComponent } from './headers.component';
 import { RowsComponent } from './rows.component';
+import { FiltersComponent } from './filters.component';
+
 import { TemplateLoaderDirective } from './template-loader.directive';
 import { DgTemplateDirective } from './template.directive';
 
@@ -17,7 +19,8 @@ let components = [
     HeadersComponent,
     RowsComponent,
     TemplateLoaderDirective,
-    DgTemplateDirective
+    DgTemplateDirective,
+    FiltersComponent
 ];
 
 @NgModule({
