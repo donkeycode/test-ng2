@@ -1,0 +1,5 @@
+<template ngFor let-col [ngForOf]="columns" let-lastCol="last">
+  <td #rowCell>
+    <template template-loader [column]="col" [item]="item" type="bodyTemplate"></template>
+  </td>
+</template>

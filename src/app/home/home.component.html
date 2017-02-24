@@ -1,0 +1,23 @@
+<div>
+  <data-grid objects="posts">
+    <column mapped-on="title">
+      <template 
+        dg-template="header" 
+        let-column="column">
+          {{ column.mappedOn }}
+      </template>
+
+      <template 
+        dg-template="body" 
+        let-column="column"
+        let-item="item">
+          {{ item[column.mappedOn] }} Modified
+      </template>
+    </column>
+
+    <column mapped-on="title"></column>
+    
+    <column type="html" mapped-on="title"></column>
+
+  </data-grid>
+</div>

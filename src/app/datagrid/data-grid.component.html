@@ -1,0 +1,8 @@
+<table>
+    <thead>
+        <tr [headers]="columns"></tr>
+    </thead>
+    <tbody>
+        <tr table-row [columns]="columns" [item]="item" *ngFor="let item of rows"></tr>
+    </tbody>
+</table>
