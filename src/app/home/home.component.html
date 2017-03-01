@@ -8,16 +8,26 @@
       </template>
 
       <template 
+        dg-template="filter" 
+        let-column="column">
+          <span x-large>{{ column.mappedOn }}</span>
+      </template>
+
+      <template 
         dg-template="body" 
         let-column="column"
         let-item="item">
-          {{ item[column.mappedOn] }} Modified
+          {{ item | json }}
       </template>
     </column>
-
-    <column mapped-on="title"></column>
     
     <column type="html" mapped-on="title"></column>
+
+    <column type="hodor" mapped-on="title"></column>
+
+    <action type="edit"></action>
+    <action type="delete"></action>
+    <action type="custom" confirm="Confirm your choice ?" [onAction]="doCustomAction"></action>
 
   </data-grid>
 </div>

@@ -10,19 +10,19 @@ export class TemplatesProvider {
             }
 
             if (!TemplatesProvider.templates[columnType] || !TemplatesProvider.templates[columnType][part]) {
-                return rej('No templates for columnType "'+ columnType + '" and part "' + part + '"');
+                return rej('No templates for columnType|actionType "'+ columnType + '" and part "' + part + '"');
             }
 
             return res(TemplatesProvider.templates[columnType][part]);
         });
     }
 
-    public static set(columnType: string, part: string, code: string) {
+    public static set(columnType: string, part: string, code: string, diOptions:{} = {}) {
         if (!TemplatesProvider.templates[columnType]) {
             TemplatesProvider.templates[columnType] = {};
         }
 
-        TemplatesProvider.templates[columnType][part] = code;   
+        TemplatesProvider.templates[columnType][part] = { template: code, diOptions: diOptions };   
     }
 }
 
@@ -30,5 +30,6 @@ export class TemplatesProvider {
 TemplatesProvider.set('default', 'headerTemplate', '{{ column.translationKey }}__TODO');
 TemplatesProvider.set('default', 'bodyTemplate', '{{ item[column.mappedOn] }}');
 TemplatesProvider.set('default', 'filterTemplate', '<input type="text" [name]="column.mappedOn" />');
+TemplatesProvider.set('default', 'actionTemplate', '<a (click)="action.onClick(item)">{{ action.type }} TODO</a>');
 
-TemplatesProvider.set('html', 'bodyTemplate', '<div [innerHTML]=item[column.mappedOn]><</div>');
+TemplatesProvider.set('html', 'bodyTemplate', '<div [innerHTML]=item[column.mappedOn]></div>');

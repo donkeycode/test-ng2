@@ -2,10 +2,18 @@
 export * from './app.module';
 
 import { Configurator } from './datagrid/configurator';
+import { XLargeDirective } from './home/x-large';
 
 Configurator.setConfig({
     apiUrl: 'http://localhost:3000'
 });
+
+import { TemplatesProvider } from './datagrid/dynamics/templates.provider';
+
+TemplatesProvider.set('hodor', 'bodyTemplate', '<span x-large>{{ column.mappedOn }}</span>HODOR HODOR {{ item[column.mappedOn] }}', {
+    imports: [ XLargeDirective ]
+});
+
 
 import FakeRest from 'fakerest';
 import fetchMock from 'fetch-mock';
@@ -20,10 +28,11 @@ restServer.init({
         { id: 0, author_id: 0, title: 'Anna Karenina' },
         { id: 1, author_id: 0, title: 'War and Peace' },
         { id: 2, author_id: 1, title: 'Pride and Prejudice' },
-        { id: 3, author_id: 1, title: 'Sense and Sensibility' }
+        { id: 3, author_id: 1, title: 'Sense and <b>Sensibility</b>' }
     ]
 });
 
 restServer.toggleLogging(); // logging is off by default, enable it
 fetchMock.mock('^http://localhost:3000', restServer.getHandler());
     //return () => fetchMock.restore();
+    

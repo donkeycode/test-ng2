@@ -41,4 +41,9 @@ export class HomeComponent implements OnInit {
     this.appState.set('value', value);
     this.localState.value = '';
   }
+
+  public doCustomAction(item)
+  {
+    alert('Action done on item ' + item);
+  }
 }

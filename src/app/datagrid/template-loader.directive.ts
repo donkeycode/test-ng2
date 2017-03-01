@@ -1,5 +1,6 @@
 import { Directive, ComponentFactory, Input, EmbeddedViewRef, ViewContainerRef, OnInit, OnDestroy, ContentChild, TemplateRef, ComponentRef, SimpleChange} from '@angular/core';
 import { ColumnComponent } from './column.component';
+import { ActionComponent } from './action.component';
 import { IHaveDynamicData, DynamicTypeBuilder } from './dynamic-type-builder.service';
 import { TemplatesProvider } from './dynamics/templates.provider';
 
@@ -12,6 +13,8 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
 
     @Input() public column: ColumnComponent;
 
+    @Input() public action: ActionComponent;
+
     @Input() public item: any;
 
     public view: EmbeddedViewRef<any>;
@@ -21,9 +24,16 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
     constructor(public viewContainer: ViewContainerRef, protected typeBuilder: DynamicTypeBuilder) {}
     
     public ngOnInit() {
-        if (this.column[this.type]) {
+        if (this.column && this.column[this.type]) {
             this.view = this.viewContainer.createEmbeddedView(this.column[this.type], {
                 column: this.column,
+                item: this.item
+            }); 
+        }
+
+        if (this.action && this.action[this.type]) {
+            this.view = this.viewContainer.createEmbeddedView(this.action[this.type], {
+                action: this.action,
                 item: this.item
             }); 
         }
@@ -45,7 +55,11 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
     }
 
     protected useDefaultTemplate() {
-        if (this.column[this.type]) {
+        if (this.column && this.column[this.type]) {
+            return;
+        }
+
+        if (this.action && this.action[this.type]) {
             return;
         }
 
@@ -54,7 +68,7 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
         }
         
         // here we get a TEMPLATE with dynamic content === TODO
-        return TemplatesProvider.get(this.column.type, this.type).then((template) => {
+        return TemplatesProvider.get(this.column ? this.column.type : this.action.type, this.type).then((template) => {
             // here we get Factory (just compiled or from cache)
             return this.typeBuilder
                 .createComponentFactory(template)
@@ -67,6 +81,7 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
                 // let's inject @Inputs to component instance
                 let component: IHaveDynamicData = this.componentRef.instance;
                 component.column = this.column;
+                component.action = this.action;
                 component.item = this.item
                 //...
 

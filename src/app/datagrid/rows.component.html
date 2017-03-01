@@ -3,3 +3,9 @@
     <template template-loader [column]="col" [item]="item" type="bodyTemplate"></template>
   </td>
 </template>
+
+<td *ngIf="actions.length > 0">
+  <template ngFor let-action [ngForOf]="actions" let-lastAction="last">
+    <template template-loader [action]="action" [item]="item" type="actionTemplate"></template>
+  </template>
+</td>

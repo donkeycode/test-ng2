@@ -6,6 +6,7 @@ import { ColumnComponent } from './column.component';
 import { HeadersComponent } from './headers.component';
 import { RowsComponent } from './rows.component';
 import { FiltersComponent } from './filters.component';
+import { ActionComponent } from './action.component';
 
 import { TemplateLoaderDirective } from './template-loader.directive';
 import { DgTemplateDirective } from './template.directive';
@@ -20,7 +21,8 @@ let components = [
     RowsComponent,
     TemplateLoaderDirective,
     DgTemplateDirective,
-    FiltersComponent
+    FiltersComponent,
+    ActionComponent
 ];
 
 @NgModule({

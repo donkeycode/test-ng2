@@ -1,5 +1,6 @@
 import { Component, AfterContentInit, ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
 import { ColumnComponent } from './column.component';
+import { ActionComponent } from './action.component';
 import { GET_LIST } from './data-providers/types';
 import { Configurator } from './configurator';
 
@@ -10,6 +11,8 @@ import { Configurator } from './configurator';
 export class DataGridComponent implements AfterContentInit, OnInit {
   @ContentChildren(ColumnComponent) private cols: QueryList<ColumnComponent>;
 
+  @ContentChildren(ActionComponent) private acts: QueryList<ActionComponent>;
+
   @Input() private objects: string;
 
   @Input('api-url') private apiUrl: string;
@@ -19,6 +22,10 @@ export class DataGridComponent implements AfterContentInit, OnInit {
   public columns: ColumnComponent[];
 
   public columnsSubscription;
+
+  public actions: ActionComponent[];
+
+  public actionsSubscription;
 
   public rows: Array<any> = [];
 
@@ -31,6 +38,7 @@ export class DataGridComponent implements AfterContentInit, OnInit {
 
   public ngAfterContentInit() {
     this.initColumns();
+    this.initActions();
   }
 
   private initColumns() {
@@ -38,6 +46,15 @@ export class DataGridComponent implements AfterContentInit, OnInit {
 
     this.columnsSubscription = this.cols.changes.subscribe(() => {
       this.initColumns();
+      this.changeDetector.markForCheck();
+    });
+  }
+
+  private initActions() {
+    this.actions = this.acts.toArray();
+
+    this.actionsSubscription = this.acts.changes.subscribe(() => {
+      this.initActions();
       this.changeDetector.markForCheck();
     });
   }
