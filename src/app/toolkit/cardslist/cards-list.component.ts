@@ -1,6 +1,6 @@
 import { Component, AfterContentInit, ContentChild, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
 
-import { RestListConnectable } from '../mixins/rest-list-connectable';
+import { RestListConnectable } from '../mixins';
 import { TraitDecorator } from '../util/mixins';
 
 @TraitDecorator(RestListConnectable)

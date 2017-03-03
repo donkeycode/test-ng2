@@ -4,7 +4,7 @@ import { ActionComponent } from './action.component';
 import { GET_LIST } from '../data-providers/types';
 import { Configurator } from '../configurator';
 
-import { RestListConnectable } from '../mixins/rest-list-connectable';
+import { RestListConnectable } from '../mixins';
 import { TraitDecorator } from '../util/mixins';
 
 @TraitDecorator(RestListConnectable)
@@ -13,12 +13,12 @@ import { TraitDecorator } from '../util/mixins';
   templateUrl: './data-grid.component.html'
 })
 export class DataGridComponent implements AfterContentInit, OnInit {
-  @Input() private objects: string;
+  @Input() private objects: string; //@Todo find a way to set it in mixins
 
   @Input('api-url') private apiUrl: string;
 
   @Input() private source;
-  
+
   @ContentChildren(ColumnComponent) private cols: QueryList<ColumnComponent>;
 
   @ContentChildren(ActionComponent) private acts: QueryList<ActionComponent>;
