@@ -2,7 +2,7 @@ import { Directive, ComponentFactory, Input, EmbeddedViewRef, ViewContainerRef, 
 import { ColumnComponent } from './column.component';
 import { ActionComponent } from './action.component';
 import { IHaveDynamicData, DynamicTypeBuilder } from './dynamic-type-builder.service';
-import { TemplatesProvider } from './dynamics/templates.provider';
+import { TemplatesProvider } from '../templates';
 
 @Directive({
     selector: '[template-loader]'

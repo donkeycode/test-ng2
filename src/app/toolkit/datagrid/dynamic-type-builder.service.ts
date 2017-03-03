@@ -1,8 +1,8 @@
 // From http://plnkr.co/edit/wh4VJG?p=preview
 import { Component, ComponentFactory, NgModule, Input, Injectable, ContentChild} from '@angular/core';
 import { JitCompiler } from '@angular/compiler';
-import { DynamicsModule } from './dynamics/dynamics.module';
-import { DgTemplateDirective } from './template.directive';
+import { DynamicsModule } from '../dynamics/dynamics.module';
+import { DgTemplateDirective } from '../templates';
 import { ColumnComponent } from './column.component';
 import { ActionComponent } from './action.component';
 

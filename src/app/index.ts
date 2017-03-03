@@ -1,14 +1,14 @@
 // App
 export * from './app.module';
 
-import { Configurator } from './datagrid/configurator';
+import { Configurator } from './toolkit/configurator';
 import { XLargeDirective } from './home/x-large';
 
 Configurator.setConfig({
     apiUrl: 'http://localhost:3000'
 });
 
-import { TemplatesProvider } from './datagrid/dynamics/templates.provider';
+import { TemplatesProvider } from './toolkit/templates';
 
 TemplatesProvider.set('hodor', 'bodyTemplate', '<span x-large>{{ column.mappedOn }}</span>HODOR HODOR {{ item[column.mappedOn] }}', {
     imports: [ XLargeDirective ]

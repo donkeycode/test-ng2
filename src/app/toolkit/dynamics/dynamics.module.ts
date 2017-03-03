@@ -9,7 +9,7 @@ export const DYNAMIC_DIRECTIVES = [
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from "@angular/common";
 import { FormsModule }   from "@angular/forms";
-import { DynamicTypeBuilder }     from '../dynamic-type-builder.service';
+import { DynamicTypeBuilder }     from '../datagrid/dynamic-type-builder.service';
 
 @NgModule({
   imports:      [ 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit, AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
-import { DgTemplateDirective } from './template.directive';
+import { DgTemplateDirective } from '../templates';
 
 @Component({
   selector: 'column', 
