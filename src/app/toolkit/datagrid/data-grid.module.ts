@@ -8,8 +8,7 @@ import { RowsComponent } from './rows.component';
 import { FiltersComponent } from './filters.component';
 import { ActionComponent } from './action.component';
 
-import { DgTemplateDirective } from '../templates';
-import { TemplateLoaderDirective } from './template-loader.directive';
+import { DgTemplateDirective, TemplateLoaderDirective } from '../templates';
 
 import { DynamicsModule }    from '../dynamics/dynamics.module';
 import { COMPILER_PROVIDERS } from '@angular/compiler';

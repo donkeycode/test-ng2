@@ -3,21 +3,15 @@ import { ColumnComponent } from './column.component';
 import { ActionComponent } from './action.component';
 import { GET_LIST } from '../data-providers/types';
 import { Configurator } from '../configurator';
-
 import { RestListConnectable } from '../mixins';
-import { TraitDecorator } from '../util/mixins';
 
-@TraitDecorator(RestListConnectable)
+
 @Component({
-  selector: 'data-grid', 
+  selector: 'data-grid',
+  styleUrls: [ './data-grid.component.scss' ],
   templateUrl: './data-grid.component.html'
 })
-export class DataGridComponent implements AfterContentInit, OnInit {
-  @Input() private objects: string; //@Todo find a way to set it in mixins
-
-  @Input('api-url') private apiUrl: string;
-
-  @Input() private source;
+export class DataGridComponent extends RestListConnectable implements AfterContentInit{
 
   @ContentChildren(ColumnComponent) private cols: QueryList<ColumnComponent>;
 
@@ -32,10 +26,7 @@ export class DataGridComponent implements AfterContentInit, OnInit {
   public actionsSubscription;
 
   constructor(public changeDetector: ChangeDetectorRef) {
-  }
-
-  public ngOnInit() {
-    this.connectRest();
+    super();
   }
 
   public ngAfterContentInit() {
@@ -61,7 +52,13 @@ export class DataGridComponent implements AfterContentInit, OnInit {
     });
   }
 
-  public isSorted(col:ColumnComponent) {
-    return false;
-  }
+  public onColumnDragStart() {}
+  public onColumnDragover() {}
+  public onColumnDragleave() {}
+  public onColumnDrop() {}
+  public onFilerMousedown() {}
+  public onFilerKeydown() {}
+  public onHeaderMousedown() {}
+  public onHeaderKeydown() {}
+
 }

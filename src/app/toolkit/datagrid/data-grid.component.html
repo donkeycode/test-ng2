@@ -1,9 +1,12 @@
-<table>
+<template *ngIf="paginationPosition=='top' || paginationPosition=='both'" template-loader [parent]="this" type="paginationTemplate"></template>
+<table class="datagrid">
     <thead>
-        <tr [headers]="columns"></tr>
-        <tr [filters]="columns"></tr>
+        <tr [headers]="columns" [hasAction]="actions.length > 0"></tr>
+        <tr [filters]="columns" [hasAction]="actions.length > 0"></tr>
     </thead>
     <tbody>
-        <tr table-row [columns]="columns" [actions]="actions" [item]="item" *ngFor="let item of rows"></tr>
+        <tr table-row [columns]="columns" [actions]="actions" [item]="item" *ngFor="let item of rows;trackBy:item?.id "></tr>
     </tbody>
 </table>
+
+<template *ngIf="paginationPosition=='bottom' || paginationPosition=='both'" template-loader [parent]="this" type="paginationTemplate"></template>
