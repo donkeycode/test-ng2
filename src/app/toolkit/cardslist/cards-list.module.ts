@@ -4,7 +4,7 @@ import { COMPILER_PROVIDERS } from '@angular/compiler';
 import { CardsListComponent } from './cards-list.component';
 
 let components = [
-    CardsListComponent
+    CardsListComponent,
 ];
 
 @NgModule({

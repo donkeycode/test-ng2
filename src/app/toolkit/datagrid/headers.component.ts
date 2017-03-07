@@ -9,7 +9,8 @@ import { ColumnComponent } from './column.component';
 export class HeadersComponent {
 
     @Input('headers') public columns: ColumnComponent[];
-   
+    @Input() public hasAction:boolean;
+
     constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid:DataGridComponent) {}
-    
+
 }
