@@ -1,4 +1,4 @@
-import SimpleRestProvider from './data-providers/simple';
+import SimpleRestProvider from './core/data-providers/simple';
 
 /*
 * Default datagrid configurations
@@ -7,6 +7,8 @@ export class Configurator {
     public static apiUrl: string;
 
     public static restProvider;
+
+    public static paginationPosition;
 
     public static setConfig(options:{}) {
         for (let key in options) {
@@ -20,5 +22,12 @@ export class Configurator {
         }
 
         return SimpleRestProvider;
+    }
+
+    public static getPaginationPosition() {
+      if (Configurator.paginationPosition) {
+          return Configurator.paginationPosition;
+      }
+      return 'both';
     }
 }

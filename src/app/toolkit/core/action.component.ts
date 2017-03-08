@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit, AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
-import { DgTemplateDirective } from '../templates';
+import { DgTemplateDirective } from './templates';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'action', 
+  selector: 'action',
   template: 'Of course this template is fake!'
 })
 export class ActionComponent implements  AfterContentInit {

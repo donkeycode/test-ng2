@@ -3,15 +3,18 @@ import { Component, ComponentFactory, NgModule, Input, Injectable, ContentChild}
 import { JitCompiler } from '@angular/compiler';
 import { DynamicsModule } from '../dynamics/dynamics.module';
 import { DgTemplateDirective } from '../templates';
-import { ColumnComponent } from './column.component';
-import { ActionComponent } from './action.component';
+import { ColumnComponent } from '../column.component';
+import { ActionComponent } from '../action.component';
+import { RestListConnectable } from '../mixins';
 
-export interface IHaveDynamicData { 
+export interface IHaveDynamicData {
     column: ColumnComponent;
 
     action: ActionComponent;
 
     template: DgTemplateDirective;
+
+    parent: RestListConnectable;
 
     item: any;
 }
@@ -23,41 +26,40 @@ export class DynamicTypeBuilder {
   constructor(
     protected compiler: JitCompiler
   ) {}
-    
+
   // this object is singleton - so we can use this as a cache
-  private _cacheOfFactories: {[templateKey: string]: ComponentFactory<IHaveDynamicData>} = {};
-  
+  private static _cacheOfFactories: {[templateKey: string]: ComponentFactory<IHaveDynamicData>} = {};
+
   public createComponentFactory(template) : Promise<ComponentFactory<IHaveDynamicData>> {
-    let factory = this._cacheOfFactories[template.template];
+    let factory = DynamicTypeBuilder._cacheOfFactories[template.template];
 
     if (factory) {
-        console.log("Module and Type are returned from cache")
-       
+        // console.log("Module and Type are returned from cache")
+
         return new Promise((resolve) => {
             resolve(factory);
         });
     }
-    
+
     // unknown template ... let's create a Type for it
     let type   = this.createNewComponent(template.template);
     let module = this.createComponentModule(type, template.diOptions);
-    
+
     return new Promise((resolve) => {
-        this.compiler
-            .compileModuleAndAllComponentsAsync(module)
-            .then((moduleWithFactories) =>
-            {
-                factory = moduleWithFactories.componentFactories.find((element) => { 
-                    return element.componentType === type;
-                });
+        let moduleWithFactories = this.compiler
+            .compileModuleAndAllComponentsSync(module);
 
-                this._cacheOfFactories[template.template] = factory;
+        factory = moduleWithFactories.componentFactories.find((element) => {
+            return element.componentType === type;
+        });
 
-                resolve(factory);
-            });
+        DynamicTypeBuilder._cacheOfFactories[template.template] = factory;
+
+        resolve(factory);
+
     });
   }
-  
+
   protected createNewComponent(tmpl:string) {
       @Component({
           selector: 'dynamic-component',
@@ -67,6 +69,8 @@ export class DynamicTypeBuilder {
           @Input()  public column: ColumnComponent;
 
           @Input()  public action: ActionComponent;
+
+          @Input()  public parent: RestListConnectable;
 
           @Input()  public item: any;
       };
