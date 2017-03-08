@@ -1,5 +1,5 @@
-<!--template *ngIf="paginationPosition=='top' || paginationPosition=='both'" template-loader [parent]="this" type="paginationTemplate"></template-->
+<template *ngIf="paginationPosition=='top' || paginationPosition=='both'" template-loader [parent]="this" type="paginationTemplate"></template>
 <div class="card" *ngFor="let item of rows">
     {{ item | json }}
 </div>
-<!--template *ngIf="paginationPosition=='bottom' || paginationPosition=='both'" template-loader [parent]="this" type="paginationTemplate"></template-->
+<template *ngIf="paginationPosition=='bottom' || paginationPosition=='both'" template-loader [parent]="this" type="paginationTemplate"></template>

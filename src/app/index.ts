@@ -8,7 +8,7 @@ Configurator.setConfig({
     apiUrl: 'http://localhost:3000'
 });
 
-import { TemplatesProvider } from './toolkit/templates';
+import { TemplatesProvider } from './toolkit/core/templates';
 
 TemplatesProvider.set('hodor', 'bodyTemplate',
   'HODOR {{ item[column.mappedOn] }}', {
@@ -21,7 +21,7 @@ import fetchMock from 'fetch-mock';
 const restServer = new FakeRest.FetchServer('http://localhost:3000');
 let books = []
 for(let i = 0; i < 4000; i++) {
-  books.push({ id: i, author_id: 0, title: 'item num '+i })
+  books.push({ id: i, author_id: 0, title: 'item num '+i, actif: (i%2==0), date: Date() })
 }
 restServer.init({
     'authors': [

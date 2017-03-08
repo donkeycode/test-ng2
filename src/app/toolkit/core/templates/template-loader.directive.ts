@@ -1,7 +1,7 @@
 import { Directive, ComponentFactory, Input, EmbeddedViewRef, ViewContainerRef, OnInit, OnDestroy, ContentChild, TemplateRef, ComponentRef, SimpleChange} from '@angular/core';
-import { ColumnComponent } from '../datagrid/column.component';
-import { ActionComponent } from '../datagrid/action.component';
-import { IHaveDynamicData, DynamicTypeBuilder } from '../datagrid/dynamic-type-builder.service';
+import { ColumnComponent } from '../column.component';
+import { ActionComponent } from '../action.component';
+import { IHaveDynamicData, DynamicTypeBuilder } from '../dynamics';
 import { TemplatesProvider } from './templates.provider';
 import { RestListConnectable } from '../mixins';
 

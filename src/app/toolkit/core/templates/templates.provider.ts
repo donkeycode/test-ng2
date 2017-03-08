@@ -27,10 +27,22 @@ export class TemplatesProvider {
 }
 
 // Register some templates
-TemplatesProvider.set('default', 'headerTemplate', '{{ column.translationKey }}__TODO');
+TemplatesProvider.set('default', 'headerTemplate', '{{ column.translationKey }}');
 TemplatesProvider.set('default', 'bodyTemplate', '{{ item[column.mappedOn] }}');
 TemplatesProvider.set('default', 'filterTemplate', '<input type="text" [name]="column.mappedOn" [ngModel]="" (ngModelChange)="parent.filter($event, column)"/>');
 TemplatesProvider.set('default', 'actionTemplate', '<a (click)="action.onClick(item)">{{ action.type }} TODO</a>');
 TemplatesProvider.set('default', 'paginationTemplate', paginationTemplate);
 
 TemplatesProvider.set('html', 'bodyTemplate', '<div [innerHTML]=item[column.mappedOn]></div>');
+
+TemplatesProvider.set('boolean', 'filterTemplate', '<select [ngModel]="\'both\'" (ngModelChange)="parent.filter($event, column)" ><option value="true">On</option><option value="false">Off</option><option value="both" selected >on & off</option></select>');
+TemplatesProvider.set('boolean', 'bodyTemplate', '{{ item[column.mappedOn]?"on":"off" }}');
+
+TemplatesProvider.set('date', 'bodyTemplate', '{{ item[column.mappedOn] | date:\'shortDate\' }}');
+TemplatesProvider.set('date', 'filterTemplate', '<input type="date" [name]="column.mappedOn" [ngModel]="" (ngModelChange)="parent.filter($event, column)"/>');
+
+TemplatesProvider.set('datetime', 'bodyTemplate', '{{ item[column.mappedOn] | date:\'short\' }}');
+TemplatesProvider.set('datetime', 'filterTemplate', '<input type="datetime" [name]="column.mappedOn" [ngModel]="" (ngModelChange)="parent.filter($event, column)"/>');
+
+
+TemplatesProvider.set('number', 'filterTemplate', '<input type="number" [name]="column.mappedOn" [ngModel]="" (ngModelChange)="parent.filter($event, column)"/>');

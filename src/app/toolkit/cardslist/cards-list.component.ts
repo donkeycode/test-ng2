@@ -1,6 +1,6 @@
 import { Component, AfterContentInit, ContentChild, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
 
-import { RestListConnectable } from '../mixins';
+import { RestListConnectable } from '../core';
 
 @Component({
   selector: 'cards-list',

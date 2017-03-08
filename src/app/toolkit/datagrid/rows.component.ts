@@ -1,7 +1,5 @@
 import { Component, Input, Inject, forwardRef} from '@angular/core';
-import { ColumnComponent } from './column.component';
-import { ActionComponent } from './action.component';
-import { RestListConnectable } from '../mixins';
+import { ColumnComponent, ActionComponent, RestListConnectable } from '../core';
 import { DataGridComponent } from './data-grid.component';
 
 @Component({

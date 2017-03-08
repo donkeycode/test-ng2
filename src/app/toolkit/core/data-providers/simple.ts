@@ -1,4 +1,4 @@
-import { queryParameters, fetchJson } from '../util/fetch';
+import { queryParameters, fetchJson } from '../../util/fetch';
 import {
     GET_LIST,
     GET_ONE,

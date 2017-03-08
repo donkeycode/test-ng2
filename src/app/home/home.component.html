@@ -1,6 +1,6 @@
 <div>
   <data-grid objects="books">
-    <column mapped-on="title">
+    <!--column mapped-on="title">
       <template
         dg-template="header"
         let-column="column">
@@ -19,11 +19,14 @@
         let-item="item">
           {{ item | json }}
       </template>
-    </column>
+    </column-->
 
     <column type="html" mapped-on="title"></column>
 
     <column type="hodor" mapped-on="title"></column>
+    <column type="boolean" mapped-on="actif"></column>
+    <column type="date" mapped-on="date"></column>
+    <column type="datetime" mapped-on="date"></column>
 
     <action type="edit"></action>
     <action type="delete"></action>
@@ -33,7 +36,7 @@
 </div>
 
 
-<!--div>
+<div>
   <cards-list objects="books">
   </cards-list>
-</div-->
+</div>

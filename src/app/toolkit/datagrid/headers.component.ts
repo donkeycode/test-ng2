@@ -1,6 +1,6 @@
 import { Component, Inject, forwardRef, Input } from '@angular/core';
 import { DataGridComponent } from './data-grid.component';
-import { ColumnComponent } from './column.component';
+import { ColumnComponent } from '../core';
 
 @Component({
     selector: '[headers]',

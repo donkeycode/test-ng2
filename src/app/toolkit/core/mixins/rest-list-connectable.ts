@@ -1,8 +1,8 @@
 import { Component, AfterContentInit, ContentChild, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
-import { ColumnComponent } from '../datagrid/column.component';
+import { ColumnComponent } from '../column.component';
 
-import { GET_LIST } from '../data-providers/types';
-import { Configurator } from '../configurator';
+import { GET_LIST } from '../data-providers';
+import { Configurator } from '../../configurator';
 
 
 export class RestListConnectable implements OnInit  {
@@ -84,7 +84,7 @@ export class RestListConnectable implements OnInit  {
 
   public filter(event, col:ColumnComponent) {
     this.resetPage();
-    if (event == '') {
+    if (event == '' || (col.type == 'boolean' && event == 'both')) {
       delete this.filtering[col.mappedOn];
     } else {
       this.filtering[col.mappedOn] = event;

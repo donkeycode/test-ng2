@@ -1,4 +1,4 @@
-import SimpleRestProvider from './data-providers/simple';
+import SimpleRestProvider from './core/data-providers/simple';
 
 /*
 * Default datagrid configurations

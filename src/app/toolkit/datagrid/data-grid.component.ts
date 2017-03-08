@@ -1,9 +1,6 @@
 import { Component, AfterContentInit, ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
-import { ColumnComponent } from './column.component';
-import { ActionComponent } from './action.component';
-import { GET_LIST } from '../data-providers/types';
+import { ColumnComponent, ActionComponent, GET_LIST, RestListConnectable } from '../core';
 import { Configurator } from '../configurator';
-import { RestListConnectable } from '../mixins';
 
 
 @Component({

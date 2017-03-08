@@ -1,4 +1,4 @@
-// make all parts as one DYNAMIC_DIRECTIVES 
+// make all parts as one DYNAMIC_DIRECTIVES
 //import { forwardRef }   from '@angular/core';
 
 export const DYNAMIC_DIRECTIVES = [
@@ -9,10 +9,10 @@ export const DYNAMIC_DIRECTIVES = [
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from "@angular/common";
 import { FormsModule }   from "@angular/forms";
-import { DynamicTypeBuilder }     from '../datagrid/dynamic-type-builder.service';
+import { DynamicTypeBuilder }     from '../dynamics/dynamic-type-builder.service';
 
 @NgModule({
-  imports:      [ 
+  imports:      [
       CommonModule,
       FormsModule
   ],
@@ -31,7 +31,7 @@ export class DynamicsModule {
     {
         return {
             ngModule: DynamicsModule,
-            providers: [ 
+            providers: [
               // singletons accross the whole app
               DynamicTypeBuilder
             ]

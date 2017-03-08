@@ -1,15 +1,15 @@
 import { Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit, AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
-import { DgTemplateDirective } from '../templates';
+import { DgTemplateDirective } from './templates';
 
 @Component({
-  selector: 'column', 
+  selector: 'column',
   template: 'Of course this template is fake!'
 })
 export class ColumnComponent implements OnInit,  AfterContentInit {
   @Input('mapped-on') public mappedOn: string;
 
   @Input() public sortable: boolean = true;
-  
+
   @Input() public filterable: boolean = true;
 
   // Usefull for date columns filtering if canHaveEmptyValues=true add empty checkbox filter
@@ -24,7 +24,7 @@ export class ColumnComponent implements OnInit,  AfterContentInit {
   @Input() public type: string = 'text';
 
   public headerTemplate: TemplateRef<any>;
-  public bodyTemplate: TemplateRef<any>;    
+  public bodyTemplate: TemplateRef<any>;
 
   public ngOnInit() {
     if (!this.translationKey) {
