@@ -8,45 +8,14 @@ import { Configurator } from '../configurator';
   styleUrls: [ './data-grid.component.scss' ],
   templateUrl: './data-grid.component.html'
 })
-export class DataGridComponent extends RestListConnectable implements AfterContentInit{
+export class DataGridComponent extends RestListConnectable implements AfterContentInit {
 
-  @ContentChildren(ColumnComponent) private cols: QueryList<ColumnComponent>;
+  @ContentChildren(ColumnComponent) protected cols: QueryList<ColumnComponent>;
 
-  @ContentChildren(ActionComponent) private acts: QueryList<ActionComponent>;
-
-  public columns: ColumnComponent[];
-
-  public columnsSubscription;
-
-  public actions: ActionComponent[];
-
-  public actionsSubscription;
+  @ContentChildren(ActionComponent) protected acts: QueryList<ActionComponent>;
 
   constructor(public changeDetector: ChangeDetectorRef) {
-    super();
-  }
-
-  public ngAfterContentInit() {
-    this.initColumns();
-    this.initActions();
-  }
-
-  private initColumns() {
-    this.columns = this.cols.toArray();
-
-    this.columnsSubscription = this.cols.changes.subscribe(() => {
-      this.initColumns();
-      this.changeDetector.markForCheck();
-    });
-  }
-
-  private initActions() {
-    this.actions = this.acts.toArray();
-
-    this.actionsSubscription = this.acts.changes.subscribe(() => {
-      this.initActions();
-      this.changeDetector.markForCheck();
-    });
+    super(changeDetector);
   }
 
   public onColumnDragStart() {}
@@ -58,4 +27,21 @@ export class DataGridComponent extends RestListConnectable implements AfterConte
   public onHeaderMousedown() {}
   public onHeaderKeydown() {}
 
+  public initColumns() {
+    this.columns = this.cols.toArray();
+
+    this.columnsSubscription = this.cols.changes.subscribe(() => {
+      this.initColumns();
+      this.changeDetector.markForCheck();
+    });
+  }
+
+  public initActions() {
+    this.actions = this.acts.toArray();
+
+    this.actionsSubscription = this.acts.changes.subscribe(() => {
+      this.initActions();
+      this.changeDetector.markForCheck();
+    });
+  }
 }

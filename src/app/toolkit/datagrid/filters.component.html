@@ -6,7 +6,7 @@
         (drop)="datagrid.onColumnDrop($event)"
         (mousedown)="datagrid.onFilerMousedown($event,filterCell)"
         (keydown)="datagrid.onFilerKeydown($event,col)">
-        <template template-loader [column]="col" [parent]="datagrid" type="filterTemplate"></template>
+        <template template-loader [element]="col" [parent]="datagrid" type="filterTemplate"></template>
   </th>
 </template>
 <th *ngIf="hasAction"></th>

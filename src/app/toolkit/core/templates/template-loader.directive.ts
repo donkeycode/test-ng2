@@ -1,9 +1,7 @@
 import { Directive, ComponentFactory, Input, EmbeddedViewRef, ViewContainerRef, OnInit, OnDestroy, ContentChild, TemplateRef, ComponentRef, SimpleChange} from '@angular/core';
-import { ColumnComponent } from '../column.component';
-import { ActionComponent } from '../action.component';
 import { IHaveDynamicData, DynamicTypeBuilder } from '../dynamics';
 import { TemplatesProvider } from './templates.provider';
-import { RestListConnectable } from '../mixins';
+import { RestListConnectable, AbstractElement } from '../mixins';
 
 @Directive({
     selector: '[template-loader]'
@@ -12,9 +10,7 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
 
     @Input() public type: string;
 
-    @Input() public column: ColumnComponent;
-
-    @Input() public action: ActionComponent;
+    @Input() public element: AbstractElement;
 
     @Input() public parent: RestListConnectable;
 
@@ -27,20 +23,13 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
     constructor(public viewContainer: ViewContainerRef, protected typeBuilder: DynamicTypeBuilder) {}
 
     public ngOnInit() {
-        if (this.column && this.column[this.type]) {
-            this.view = this.viewContainer.createEmbeddedView(this.column[this.type], {
-                column: this.column,
+        if (this.element && this.element[this.type]) {
+            this.view = this.viewContainer.createEmbeddedView(this.element[this.type], {
+                element: this.element,
                 item: this.item,
                 parent: this.parent
             });
-        }
-
-        if (this.action && this.action[this.type]) {
-            this.view = this.viewContainer.createEmbeddedView(this.action[this.type], {
-                action: this.action,
-                item: this.item,
-                parent: this.parent
-            });
+            return;
         }
     }
 
@@ -62,20 +51,15 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
     }
 
     protected useDefaultTemplate() {
-        if (this.column && this.column[this.type]) {
+        if (this.element && this.element[this.type]) {
             return;
         }
-
-        if (this.action && this.action[this.type]) {
-            return;
-        }
-
         if (this.componentRef) {
             this.componentRef.destroy();
         }
 
         // here we get a TEMPLATE with dynamic content === TODO
-        return TemplatesProvider.get(this.column ? this.column.type : (this.action? this.action.type : 'default'), this.type).then((template) => {
+        return TemplatesProvider.get(this.element ? this.element.type :' default', this.type).then((template) => {
             // here we get Factory (just compiled or from cache)
             return this.typeBuilder
                 .createComponentFactory(template)
@@ -87,8 +71,7 @@ export class TemplateLoaderDirective implements OnInit, OnDestroy {
 
                 // let's inject @Inputs to component instance
                 let component: IHaveDynamicData = this.componentRef.instance;
-                component.column = this.column;
-                component.action = this.action;
+                component.element = this.element;
                 component.item = this.item
                 component.parent = this.parent;
                 //...

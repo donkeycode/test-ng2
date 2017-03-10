@@ -3,16 +3,10 @@ import { Component, ComponentFactory, NgModule, Input, Injectable, ContentChild}
 import { JitCompiler } from '@angular/compiler';
 import { DynamicsModule } from '../dynamics/dynamics.module';
 import { DgTemplateDirective } from '../templates';
-import { ColumnComponent } from '../column.component';
-import { ActionComponent } from '../action.component';
-import { RestListConnectable } from '../mixins';
+import { RestListConnectable, AbstractElement } from '../mixins';
 
 export interface IHaveDynamicData {
-    column: ColumnComponent;
-
-    action: ActionComponent;
-
-    template: DgTemplateDirective;
+    element: AbstractElement;
 
     parent: RestListConnectable;
 
@@ -66,9 +60,7 @@ export class DynamicTypeBuilder {
           template: tmpl,
       })
       class CustomDynamicComponent implements IHaveDynamicData {
-          @Input()  public column: ColumnComponent;
-
-          @Input()  public action: ActionComponent;
+          @Input()  public element: AbstractElement;
 
           @Input()  public parent: RestListConnectable;
 

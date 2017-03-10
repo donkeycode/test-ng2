@@ -1,11 +1,11 @@
-import { Component, AfterContentInit, ContentChild, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
+import { Component, AfterContentInit, ContentChild, ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
 import { ColumnComponent } from '../column.component';
-
+import { ActionComponent } from '../action.component';
 import { GET_LIST } from '../data-providers';
 import { Configurator } from '../../configurator';
 
 
-export class RestListConnectable implements OnInit  {
+export abstract class RestListConnectable implements OnInit  {
 
   @Input() private objects: string; //@Todo find a way to set it in mixins
 
@@ -13,13 +13,22 @@ export class RestListConnectable implements OnInit  {
 
   @Input() private source;
 
-   @Input() set pagePosition(position: number){
-      if (position) {
-        this.paginationPosition = position;
-        return;
-      }
-      this.paginationPosition = Configurator.getPaginationPosition();
-    };
+  @Input() set pagePosition(position: number){
+    if (position) {
+      this.paginationPosition = position;
+      return;
+    }
+    this.paginationPosition = Configurator.getPaginationPosition();
+  };
+
+
+  public columns: ColumnComponent[];
+
+  public columnsSubscription;
+
+  public actions: ActionComponent[];
+
+  public actionsSubscription;
 
   public paginationPosition = Configurator.getPaginationPosition();
 
@@ -32,6 +41,9 @@ export class RestListConnectable implements OnInit  {
   public pagination:any = { page: 1, perPage: 10 };
 
   public totalPages:number = 1;
+
+  constructor(public changeDetector: ChangeDetectorRef) {
+  }
 
   public ngOnInit() {
     this.connectRest();
@@ -101,4 +113,13 @@ export class RestListConnectable implements OnInit  {
     }
     return array;
   }
+
+  public ngAfterContentInit() {
+    this.initColumns();
+    this.initActions();
+  }
+
+  public initColumns();
+  public initActions();
+
 }

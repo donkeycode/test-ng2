@@ -1,13 +1,13 @@
 import { Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit, AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
 import { DgTemplateDirective } from './templates';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AbstractElement } from './mixins';
 
 @Component({
   selector: 'action',
   template: 'Of course this template is fake!'
 })
-export class ActionComponent implements  AfterContentInit {
-  @Input() public type: string;
+export class ActionComponent extends AbstractElement implements  AfterContentInit {
 
   @Input() public onAction: Function;
 
@@ -20,18 +20,7 @@ export class ActionComponent implements  AfterContentInit {
   constructor(
     private router: Router,
     protected route: ActivatedRoute
-  ){}
-
-  protected loadTemplates() {
-      this.templates.forEach((dgTemplate: DgTemplateDirective) => {
-        // @todo check type is valid
-        this[dgTemplate.getType()+"Template"] = dgTemplate.template;
-      });
-  }
-
-  public ngAfterContentInit():void {
-    this.loadTemplates();
-  }
+  ){ super(); }
 
   public onClick(item)
   {

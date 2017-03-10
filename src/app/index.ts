@@ -11,7 +11,7 @@ Configurator.setConfig({
 import { TemplatesProvider } from './toolkit/core/templates';
 
 TemplatesProvider.set('hodor', 'bodyTemplate',
-  'HODOR {{ item[column.mappedOn] }}', {
+  'HODOR {{ item[element.mappedOn] }}', {
   // @TODO  imports: [ XLargeDirective ]
 });
 

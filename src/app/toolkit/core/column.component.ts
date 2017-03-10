@@ -1,11 +1,12 @@
 import { Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit, AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
 import { DgTemplateDirective } from './templates';
+import { AbstractElement } from './mixins';
 
 @Component({
   selector: 'column',
   template: 'Of course this template is fake!'
 })
-export class ColumnComponent implements OnInit,  AfterContentInit {
+export class ColumnComponent extends AbstractElement implements OnInit,  AfterContentInit {
   @Input('mapped-on') public mappedOn: string;
 
   @Input() public sortable: boolean = true;
@@ -21,8 +22,6 @@ export class ColumnComponent implements OnInit,  AfterContentInit {
 
   @ContentChildren(DgTemplateDirective) public templates: QueryList<any>;
 
-  @Input() public type: string = 'text';
-
   public headerTemplate: TemplateRef<any>;
   public bodyTemplate: TemplateRef<any>;
 
@@ -32,14 +31,4 @@ export class ColumnComponent implements OnInit,  AfterContentInit {
     }
   }
 
-  protected loadTemplates() {
-      this.templates.forEach((dgTemplate: DgTemplateDirective) => {
-        // @todo check type is valid
-        this[dgTemplate.getType()+"Template"] = dgTemplate.template;
-      });
-  }
-
-  public ngAfterContentInit():void {
-    this.loadTemplates();
-  }
 }
