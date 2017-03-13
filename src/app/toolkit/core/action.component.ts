@@ -1,4 +1,7 @@
-import { Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit, AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
+import {
+  Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit,
+  AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef
+} from '@angular/core';
 import { DgTemplateDirective } from './templates';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AbstractElement } from './mixins';
@@ -17,13 +20,12 @@ export class ActionComponent extends AbstractElement implements  AfterContentIni
 
   public actionTemplate: TemplateRef<any>;
 
-  constructor(
+  constructor (
     private router: Router,
     protected route: ActivatedRoute
-  ){ super(); }
+  ) { super(); }
 
-  public onClick(item)
-  {
+  public onClick(item) {
     if (this.confirm) {
       if (confirm(this.confirm)) { // @ToDo use sexy modals and enable confirm eval
         this.doAction(item);
@@ -35,8 +37,7 @@ export class ActionComponent extends AbstractElement implements  AfterContentIni
     this.doAction(item);
   }
 
-  private doAction(item)
-  {
+  private doAction(item) {
     if (this.onAction) {
       return this.onAction(item);
     }

@@ -1,4 +1,7 @@
-import { Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit, AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
+import {
+  Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit,
+  AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef
+} from '@angular/core';
 import { DgTemplateDirective } from './templates';
 import { AbstractElement } from './mixins';
 

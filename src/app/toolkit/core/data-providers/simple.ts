@@ -97,10 +97,16 @@ export default (apiUrl, httpClient = fetchJson) => {
         switch (type) {
         case GET_LIST:
             if (!headers.has('content-range')) {
-                throw new Error('The Content-Range header is missing in the HTTP Response. The simple REST client expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare Content-Range in the Access-Control-Expose-Headers header?');
+                throw new Error(
+                  `The Content-Range header is missing in the HTTP Response.
+                  The simple REST client expects responses for lists of resources
+                  to contain this header with the total number of results to build the pagination.
+                  If you are using CORS, did you declare Content-Range in the
+                  Access-Control-Expose-Headers header?
+                `);
             }
             return {
-                data: json.map(x => x),
+                data: json.map((x) => x),
                 total: parseInt(headers.get('content-range').split('/').pop(), 10),
             };
         case CREATE:
@@ -119,6 +125,6 @@ export default (apiUrl, httpClient = fetchJson) => {
     return (type, resource, params) => {
         const { url, options } = convertRESTRequestToHTTP(type, resource, params);
         return httpClient(url, options)
-            .then(response => convertHTTPResponseToREST(response, type, resource, params));
+            .then((response) => convertHTTPResponseToREST(response, type, resource, params));
     };
 };

@@ -10,9 +10,11 @@ export class Configurator {
 
     public static paginationPosition;
 
-    public static setConfig(options:{}) {
+    public static setConfig(options: {}) {
         for (let key in options) {
+          if (key) {
             Configurator[key] = options[key];
+          }
         }
     }
 

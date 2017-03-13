@@ -1,7 +1,9 @@
-import { Component, AfterContentInit, ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
+import {
+  Component, AfterContentInit, ContentChildren, QueryList, ChangeDetectorRef,
+  OnInit, Input
+} from '@angular/core';
 import { ColumnComponent, ActionComponent, GET_LIST, RestListConnectable } from '../core';
 import { Configurator } from '../configurator';
-
 
 @Component({
   selector: 'data-grid',
@@ -18,14 +20,14 @@ export class DataGridComponent extends RestListConnectable implements AfterConte
     super(changeDetector);
   }
 
-  public onColumnDragStart() {}
-  public onColumnDragover() {}
-  public onColumnDragleave() {}
-  public onColumnDrop() {}
-  public onFilerMousedown() {}
-  public onFilerKeydown() {}
-  public onHeaderMousedown() {}
-  public onHeaderKeydown() {}
+  public onColumnDragStart = () => undefined;
+  public onColumnDragover = () => undefined;
+  public onColumnDragleave = () => undefined;
+  public onColumnDrop = () => undefined;
+  public onFilerMousedown = () => undefined;
+  public onFilerKeydown = () => undefined;
+  public onHeaderMousedown = () => undefined;
+  public onHeaderKeydown = () => undefined;
 
   public initColumns() {
     this.columns = this.cols.toArray();

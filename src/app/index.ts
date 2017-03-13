@@ -19,16 +19,16 @@ import FakeRest from 'fakerest';
 import fetchMock from 'fetch-mock';
 
 const restServer = new FakeRest.FetchServer('http://localhost:3000');
-let books = []
-for(let i = 0; i < 4000; i++) {
-  books.push({ id: i, author_id: 0, title: 'item num '+i, actif: (i%2==0), date: Date() })
+let books = [];
+for (let i = 0; i < 4000; i++) {
+  books.push({ id: i, author_id: 0, title: 'item num ' + i, actif: (i % 2 === 0) , date: Date() });
 }
 restServer.init({
-    'authors': [
+    authors: [
         { id: 0, first_name: 'Leo', last_name: 'Tolstoi' },
         { id: 1, first_name: 'Jane', last_name: 'Austen' }
     ],
-    'books': books
+    books
 });
 
 restServer.toggleLogging(); // logging is off by default, enable it

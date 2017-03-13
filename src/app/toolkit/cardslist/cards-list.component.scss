@@ -1,6 +1,6 @@
 @import "../variables.scss";
 :host /deep/ {
-  .list-pagination {
+  .list-pagination, .actions {
     text-align: center;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -36,6 +36,7 @@
   .card {
     border: 1px solid $light-grey;
     display: inline-flex;
+    position: relative;
     width: 20%;
     margin: 10px;
     padding: 20px;
@@ -66,5 +67,11 @@
     .filtre-container {
       margin-top: 10px;
     }
+  }
+  .actions {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    text-align: right;
   }
 }

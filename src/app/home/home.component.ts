@@ -7,7 +7,6 @@ import { AppState } from '../app.service';
 import { Title } from './title';
 import { XLargeDirective } from './x-large';
 
-
 @Component({
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
@@ -42,8 +41,7 @@ export class HomeComponent implements OnInit {
     this.localState.value = '';
   }
 
-  public doCustomAction(item)
-  {
+  public doCustomAction(item) {
     alert('Action done on item ' + item);
   }
 }

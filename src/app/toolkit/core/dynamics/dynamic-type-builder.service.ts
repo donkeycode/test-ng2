@@ -1,5 +1,7 @@
 // From http://plnkr.co/edit/wh4VJG?p=preview
-import { Component, ComponentFactory, NgModule, Input, Injectable, ContentChild} from '@angular/core';
+import {
+  Component, ComponentFactory, NgModule, Input, Injectable, ContentChild
+} from '@angular/core';
 import { JitCompiler } from '@angular/compiler';
 import { DynamicsModule } from '../dynamics/dynamics.module';
 import { DgTemplateDirective } from '../templates';
@@ -16,15 +18,17 @@ export interface IHaveDynamicData {
 @Injectable()
 export class DynamicTypeBuilder {
 
+  // this object is singleton - so we can use this as a cache
+  private static _cacheOfFactories: {
+    [templateKey: string]: ComponentFactory<IHaveDynamicData>
+  } = {};
+
   // wee need Dynamic component builder
   constructor(
     protected compiler: JitCompiler
   ) {}
 
-  // this object is singleton - so we can use this as a cache
-  private static _cacheOfFactories: {[templateKey: string]: ComponentFactory<IHaveDynamicData>} = {};
-
-  public createComponentFactory(template) : Promise<ComponentFactory<IHaveDynamicData>> {
+  public createComponentFactory(template): Promise<ComponentFactory<IHaveDynamicData>> {
     let factory = DynamicTypeBuilder._cacheOfFactories[template.template];
 
     if (factory) {
@@ -54,35 +58,34 @@ export class DynamicTypeBuilder {
     });
   }
 
-  protected createNewComponent(tmpl:string) {
-      @Component({
-          selector: 'dynamic-component',
-          template: tmpl,
-      })
-      class CustomDynamicComponent implements IHaveDynamicData {
-          @Input()  public element: AbstractElement;
+  protected createNewComponent(tmpl: string) {
+    @Component({
+        selector: 'dynamic-component',
+        template: tmpl,
+    })
+    class CustomDynamicComponent implements IHaveDynamicData {
+      @Input() public element: AbstractElement;
 
-          @Input()  public parent: RestListConnectable;
+      @Input() public parent: RestListConnectable;
 
-          @Input()  public item: any;
-      };
-      // a component for this particular template
-      return CustomDynamicComponent;
+      @Input() public item: any;
+    }
+    // a component for this particular template
+    return CustomDynamicComponent;
   }
 
   protected createComponentModule(componentType: any, options: {} = {}) {
-      @NgModule({
-        imports: [
-          DynamicsModule, // there are 'html-column text-column'...
-        ].concat(options.imports || []),
-        declarations: [
-          componentType
-        ],
-      })
-      class RuntimeComponentModule
-      {
-      }
-      // a module for just this Type
-      return RuntimeComponentModule;
+    @NgModule({
+      imports: [
+        DynamicsModule, // there are 'html-column text-column'...
+      ].concat(options.imports || []),
+      declarations: [
+        componentType
+      ],
+    })
+    class RuntimeComponentModule {
+    }
+    // a module for just this Type
+    return RuntimeComponentModule;
   }
 }

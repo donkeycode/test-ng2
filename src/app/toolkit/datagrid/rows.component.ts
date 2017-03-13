@@ -1,4 +1,4 @@
-import { Component, Input, Inject, forwardRef} from '@angular/core';
+import { Component, Input, Inject, forwardRef } from '@angular/core';
 import { ColumnComponent, ActionComponent, RestListConnectable } from '../core';
 import { DataGridComponent } from './data-grid.component';
 
@@ -12,8 +12,8 @@ export class RowsComponent {
 
     @Input() public actions: ActionComponent[];
 
-    //@Input() public parent: RestListConnectable;
+    // @Input() public parent: RestListConnectable;
     @Input() public item;
-    constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid:DataGridComponent) {}
+    constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid: DataGridComponent) {}
 
 }

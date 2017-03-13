@@ -1,6 +1,11 @@
-import { Component, AfterContentInit, ContentChild,ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
+import {
+  Component, AfterContentInit, ContentChild, ContentChildren, QueryList,
+  ChangeDetectorRef, OnInit, Input
+} from '@angular/core';
 
-import {ColumnComponent, ActionComponent, GET_LIST, RestListConnectable, AbstractElement } from '../core';
+import {
+  ColumnComponent, ActionComponent, GET_LIST, RestListConnectable, AbstractElement
+} from '../core';
 import { CardComponent } from './card.component';
 
 @Component({
@@ -9,6 +14,11 @@ import { CardComponent } from './card.component';
   templateUrl: './cards-list.component.html'
 })
 export class CardsListComponent extends RestListConnectable  {
+
+    public template = `<div>
+    <p>Dynamic Component + {{item | json}}</p>
+    <div *componentOutlet="'lol'; context: self; selector:'test2'"></div>
+  </div>`;
 
     @ContentChildren(ColumnComponent) protected cols: QueryList<ColumnComponent>;
 
@@ -32,5 +42,4 @@ export class CardsListComponent extends RestListConnectable  {
         this.changeDetector.markForCheck();
       });
     }
-
 }

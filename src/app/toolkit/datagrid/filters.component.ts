@@ -9,8 +9,8 @@ import { ColumnComponent } from '../core';
 export class FiltersComponent {
 
     @Input('filters') public columns: ColumnComponent[];
-    @Input() public hasAction:boolean;
+    @Input() public hasAction: boolean;
 
-    constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid:DataGridComponent) {}
+    constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid: DataGridComponent) {}
 
 }

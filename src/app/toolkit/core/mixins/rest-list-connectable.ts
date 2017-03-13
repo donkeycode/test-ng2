@@ -1,17 +1,13 @@
-import { Component, AfterContentInit, ContentChild, ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
+import {
+  Component, AfterContentInit, ContentChild, ContentChildren, QueryList,
+  ChangeDetectorRef, OnInit, Input
+} from '@angular/core';
 import { ColumnComponent } from '../column.component';
 import { ActionComponent } from '../action.component';
 import { GET_LIST } from '../data-providers';
 import { Configurator } from '../../configurator';
 
-
-export abstract class RestListConnectable implements OnInit  {
-
-  @Input() private objects: string; //@Todo find a way to set it in mixins
-
-  @Input('api-url') private apiUrl: string;
-
-  @Input() private source;
+export abstract class RestListConnectable implements OnInit, AfterContentInit {
 
   @Input() set pagePosition(position: number){
     if (position) {
@@ -20,7 +16,6 @@ export abstract class RestListConnectable implements OnInit  {
     }
     this.paginationPosition = Configurator.getPaginationPosition();
   };
-
 
   public columns: ColumnComponent[];
 
@@ -34,13 +29,19 @@ export abstract class RestListConnectable implements OnInit  {
 
   public rows: any[] = [ ];
 
-  public sorting:any = { field:'', order: 'ASC' };
+  public sorting: any = { field: '', order: 'ASC' };
 
-  public filtering:any = {};
+  public filtering: any = {};
 
-  public pagination:any = { page: 1, perPage: 10 };
+  public pagination: any = { page: 1, perPage: 10 };
 
-  public totalPages:number = 1;
+  public totalPages: number = 1;
+
+  @Input() private objects: string; // @TODO find a way to set it in mixins
+
+  @Input('api-url') private apiUrl: string;
+
+  @Input() private source;
 
   constructor(public changeDetector: ChangeDetectorRef) {
   }
@@ -50,8 +51,9 @@ export abstract class RestListConnectable implements OnInit  {
   }
 
   public connectRest() {
-    let restProvider = this.source || Configurator.getRestProvider()(this.apiUrl || Configurator.apiUrl);
-    let results = restProvider(GET_LIST, this.objects, {
+    let restProvider = this.source ||
+      Configurator.getRestProvider()(this.apiUrl || Configurator.apiUrl);
+    restProvider(GET_LIST, this.objects, {
         pagination: this.pagination,
         sort: this.sorting,
         filter: this.filtering
@@ -74,29 +76,29 @@ export abstract class RestListConnectable implements OnInit  {
     return;
   }
 
-  public isSorted(col:ColumnComponent) {
+  public isSorted(col: ColumnComponent) {
     return false;
   }
 
-  public sort(event, col:ColumnComponent) {
+  public sort(event, col: ColumnComponent) {
     if (!col.sortable) {
       return;
     }
     if (this.sorting.field === col.mappedOn) {
-      this.sorting.order = this.sorting.order == 'ASC' ? 'DESC' : 'ASC';
+      this.sorting.order = this.sorting.order === 'ASC' ? 'DESC' : 'ASC';
     } else {
       this.sorting = {
         field: col.mappedOn,
         order: 'ASC'
-      }
+      };
     }
     this.resetPage();
     this.connectRest();
   }
 
-  public filter(event, col:ColumnComponent) {
+  public filter(event, col: ColumnComponent) {
     this.resetPage();
-    if (event == '' || (col.type == 'boolean' && event == 'both')) {
+    if (event === '' || (col.type === 'boolean' && event === 'both')) {
       delete this.filtering[col.mappedOn];
     } else {
       this.filtering[col.mappedOn] = event;
@@ -104,11 +106,12 @@ export abstract class RestListConnectable implements OnInit  {
     this.connectRest();
   }
 
-  public createPaginationArray(offset:number) {
+  public createPaginationArray(offset: number) {
     let array = [];
     let startIndex = this.pagination.page - offset <= 0 ? 1 : this.pagination.page - offset;
-    let lastIndex = this.pagination.page + offset +1 > this.totalPages ? this.totalPages : this.pagination.page + offset +1;
-    for(let i = startIndex; i < lastIndex; i++) {
+    let lastIndex = this.pagination.page + offset + 1 > this.totalPages ?
+      this.totalPages : this.pagination.page + offset + 1;
+    for (let i = startIndex; i < lastIndex; i++) {
       array.push(i);
     }
     return array;
