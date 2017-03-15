@@ -1,8 +1,7 @@
 class HttpError extends Error {
-    constructor(message, status) {
+    public name:any;
+    constructor(public message, public status:any) {
         super(message);
-        this.message = message;
-        this.status = status;
         this.name = this.constructor.name;
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, this.constructor);

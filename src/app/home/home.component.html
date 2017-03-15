@@ -1,4 +1,4 @@
-<!--div>
+<div>
   <data-grid objects="books">
     <column mapped-on="title">
       <template
@@ -30,10 +30,10 @@
 
     <action type="edit"></action>
     <action type="delete"></action>
-    <action type="custom" confirm="Confirm your choice ?" [onAction]="doCustomAction"></action>
+    <action type="custom" confirm="Confirm your choice ?" (onAction)="doCustomAction($event)"></action>
 
   </data-grid>
-</div-->
+</div>
 
 <div>
   <cards-list objects="books">
@@ -50,7 +50,7 @@
           baaaah
       </template>
     </card>
-    <action type="custom" confirm="Confirm your choice ?" [onAction]="doCustomAction"></action>
+    <action type="custom" confirm="Confirm your choice ?" (onAction)="doCustomAction($event)"></action>
     <action type="edit"></action>
   </cards-list>
 </div>

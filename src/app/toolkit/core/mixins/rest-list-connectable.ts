@@ -122,7 +122,7 @@ export abstract class RestListConnectable implements OnInit, AfterContentInit {
     this.initActions();
   }
 
-  public initColumns();
-  public initActions();
+  public initColumns () { };
+  public initActions () { };
 
 }

@@ -1,6 +1,7 @@
 import {
   Component, Input, OnInit, OnChanges, TemplateRef, ContentChildren, AfterViewInit,
-  AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef
+  AfterContentInit, QueryList, ViewContainerRef, ComponentFactoryResolver, ComponentRef,
+  Output, EventEmitter
 } from '@angular/core';
 import { DgTemplateDirective } from './templates';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,7 +13,7 @@ import { AbstractElement } from './mixins';
 })
 export class ActionComponent extends AbstractElement implements  AfterContentInit {
 
-  @Input() public onAction: Function;
+  @Output() public onAction = new EventEmitter();
 
   @Input() public confirm: string;
 
@@ -38,10 +39,9 @@ export class ActionComponent extends AbstractElement implements  AfterContentIni
   }
 
   private doAction(item) {
-    if (this.onAction) {
-      return this.onAction(item);
+    if(this.onAction.observers.length > 0) {
+      return this.onAction.emit(item);
     }
-
     // @Todo make it more customizable
     this.router.navigate([this.route.snapshot.routeConfig.path, item.id, this.type ]);
   }

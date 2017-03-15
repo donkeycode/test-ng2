@@ -74,7 +74,7 @@ export class DynamicTypeBuilder {
     return CustomDynamicComponent;
   }
 
-  protected createComponentModule(componentType: any, options: {} = {}) {
+  protected createComponentModule(componentType: any, options: any = {}) {
     @NgModule({
       imports: [
         DynamicsModule, // there are 'html-column text-column'...

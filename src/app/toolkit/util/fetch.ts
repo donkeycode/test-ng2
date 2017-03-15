@@ -1,6 +1,8 @@
 import HttpError from './HttpError';
+declare var fetch;
+declare var Headers;
 
-export const fetchJson = (url, options = {}) => {
+export const fetchJson = (url, options:any = {}) => {
     const requestHeaders = options.headers || new Headers({
         Accept: 'application/json',
     });
