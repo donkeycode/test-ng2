@@ -1,14 +1,14 @@
 // App
 export * from './app.module';
 
-import { Configurator } from './toolkit/configurator';
+import { Configurator } from 'ngx-declarative/configurator';
 import { XLargeDirective } from './home/x-large';
 
 Configurator.setConfig({
     apiUrl: 'http://localhost:3000'
 });
 
-import { TemplatesProvider } from './toolkit/core/templates';
+import { TemplatesProvider } from 'ngx-declarative/core';
 
 TemplatesProvider.set('hodor', 'bodyTemplate',
   'HODOR {{ item[element.mappedOn] }}', {

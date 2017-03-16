@@ -28,8 +28,8 @@ import { HomeComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './home/x-large';
-import { DataGridModule } from './toolkit/datagrid';
-import { CardsListModule } from './toolkit/cardslist';
+import { DataGridModule } from 'ngx-declarative/datagrid';
+import { CardsListModule } from 'ngx-declarative/cardslist';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';

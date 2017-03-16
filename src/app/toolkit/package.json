@@ -1,0 +1,27 @@
+{
+  "name": "ngx-declarative",
+  "version": "0.0.2",
+  "description": "An Angular 2 toolkit with datagrid, card-list in declarative programing",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donkeycode/ngx-declarative/"
+  },
+  "keywords": [
+    "angular2",
+    "declarative",
+    "datagrid",
+    "cardlist"
+  ],
+  "author": "Donkeycode <hello@donkeycode.com>",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "*"
+  },
+  "peerDependencies": {
+    "@angular/common": "*",
+    "@angular/router": "*",
+    "@angular/compiler": "*",
+    "@angular/http": "*",
+    "@angular/core": "*"
+  }
+}
