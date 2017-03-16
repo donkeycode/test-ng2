@@ -1,18 +1,18 @@
-// make all parts as one DYNAMIC_DIRECTIVES 
-//import { forwardRef }   from '@angular/core';
+// make all parts as one DYNAMIC_DIRECTIVES
+// import { forwardRef }   from '@angular/core';
 
 export const DYNAMIC_DIRECTIVES = [
-  //forwardRef(() => HtmlColumnComponent),
+  // forwardRef(() => HtmlColumnComponent),
 ];
 
 // module itself
 import { NgModule }      from '@angular/core';
-import { CommonModule }  from "@angular/common";
-import { FormsModule }   from "@angular/forms";
-import { DynamicTypeBuilder }     from '../datagrid/dynamic-type-builder.service';
+import { CommonModule }  from '@angular/common';
+import { FormsModule }   from '@angular/forms';
+import { DynamicTypeBuilder }     from '../dynamics/dynamic-type-builder.service';
 
 @NgModule({
-  imports:      [ 
+  imports:      [
       CommonModule,
       FormsModule
   ],
@@ -27,11 +27,10 @@ import { DynamicTypeBuilder }     from '../datagrid/dynamic-type-builder.service
 })
 export class DynamicsModule {
 
-    static forRoot()
-    {
+    public static forRoot() {
         return {
             ngModule: DynamicsModule,
-            providers: [ 
+            providers: [
               // singletons accross the whole app
               DynamicTypeBuilder
             ]

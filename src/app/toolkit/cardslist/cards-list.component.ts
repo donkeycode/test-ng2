@@ -1,23 +1,45 @@
-import { Component, AfterContentInit, ContentChild, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
+import {
+  Component, AfterContentInit, ContentChild, ContentChildren, QueryList,
+  ChangeDetectorRef, OnInit, Input
+} from '@angular/core';
 
-import { RestListConnectable } from '../mixins';
-import { TraitDecorator } from '../util/mixins';
+import {
+  ColumnComponent, ActionComponent, GET_LIST, RestListConnectable, AbstractElement
+} from '../core';
+import { CardComponent } from './card.component';
 
-@TraitDecorator(RestListConnectable)
 @Component({
-  selector: 'cards-list', 
+  selector: 'cards-list',
+  styleUrls: [ './cards-list.component.scss' ],
   templateUrl: './cards-list.component.html'
 })
-export class CardsListComponent implements OnInit {
-  @Input() private objects: string;
+export class CardsListComponent extends RestListConnectable  {
 
-  @Input('api-url') private apiUrl: string;
+    public template = `<div>
+    <p>Dynamic Component + {{item | json}}</p>
+    <div *componentOutlet="'lol'; context: self; selector:'test2'"></div>
+  </div>`;
 
-  @Input() private source;
+    @ContentChildren(ColumnComponent) protected cols: QueryList<ColumnComponent>;
 
-  //@ContentChild(CardComponent) private card: CardComponent;
+    @ContentChildren(ActionComponent) protected acts: QueryList<ActionComponent>;
 
-  public ngOnInit() {
-    this.connectRest();
-  }
+    @ContentChild(CardComponent) protected card: CardComponent;
+
+    public initColumns() {
+      this.columns = this.cols.toArray();
+
+      this.columnsSubscription = this.cols.changes.subscribe(() => {
+        this.initColumns();
+        this.changeDetector.markForCheck();
+      });
+    }
+    public initActions() {
+      this.actions = this.acts.toArray();
+
+      this.actionsSubscription = this.acts.changes.subscribe(() => {
+        this.initActions();
+        this.changeDetector.markForCheck();
+      });
+    }
 }

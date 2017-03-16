@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { ColumnComponent } from './column.component';
-import { ActionComponent } from './action.component';
+import { Component, Input, Inject, forwardRef } from '@angular/core';
+import { ColumnComponent, ActionComponent, RestListConnectable } from '../core';
+import { DataGridComponent } from './data-grid.component';
 
 @Component({
     selector: '[table-row]',
@@ -12,5 +12,8 @@ export class RowsComponent {
 
     @Input() public actions: ActionComponent[];
 
-    @Input() public item;    
+    // @Input() public parent: RestListConnectable;
+    @Input() public item;
+    constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid: DataGridComponent) {}
+
 }

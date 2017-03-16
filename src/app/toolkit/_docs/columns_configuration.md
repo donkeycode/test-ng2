@@ -1,15 +1,15 @@
-# Configuration for columns 
+# Configuration for columns
 
-## Options on column 
+## Options on column
 
 ```` html
 <column
     <!-- define api association on column -->
     mapped-on="string"
     <!-- define if column is sortable can be setted by default by dataProvider and else setted at true -->
-    sortable="boolean:true" 
+    sortable="boolean:true"
     <!-- define if column is filterable can be setted by default by dataProvider and else setted at true -->
-    filterable="boolean:true" 
+    filterable="boolean:true"
     <!-- Usefull for date columns filtering if canHaveEmptyValues=true add empty checkbox filter -->
     can-have-empty-values="boolean:false"
     <!-- Is column visible by default -->
@@ -23,14 +23,14 @@
 
 ## Override template for one specific column
 
-By default template is defined by `type` option and matched with the [template configuration](templating.md), 
+By default template is defined by `type` option and matched with the [template configuration](templating.md),
 but sometimes you want to override one template for one column
 
 ```` html
 <column mapped-on="something">
-    <template 
-    dg-template="header|footer|filter" 
-    let-column="column"
+    <template
+    dg-template="header|footer|filter"
+    let-column="element"
     let-item="item">
         Do something you want here
     </template>

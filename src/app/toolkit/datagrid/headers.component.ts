@@ -1,6 +1,6 @@
 import { Component, Inject, forwardRef, Input } from '@angular/core';
 import { DataGridComponent } from './data-grid.component';
-import { ColumnComponent } from './column.component';
+import { ColumnComponent } from '../core';
 
 @Component({
     selector: '[headers]',
@@ -9,7 +9,8 @@ import { ColumnComponent } from './column.component';
 export class HeadersComponent {
 
     @Input('headers') public columns: ColumnComponent[];
-   
-    constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid:DataGridComponent) {}
-    
+    @Input() public hasAction: boolean;
+
+    constructor(@Inject(forwardRef(() => DataGridComponent)) public datagrid: DataGridComponent) {}
+
 }

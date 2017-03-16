@@ -1,6 +1,8 @@
 import HttpError from './HttpError';
+declare var fetch;
+declare var Headers;
 
-export const fetchJson = (url, options = {}) => {
+export const fetchJson = (url, options:any = {}) => {
     const requestHeaders = options.headers || new Headers({
         Accept: 'application/json',
     });
@@ -12,7 +14,7 @@ export const fetchJson = (url, options = {}) => {
     }
 
     return fetch(url, { ...options, headers: requestHeaders })
-        .then(response => response.text().then(text => ({
+        .then((response) => response.text().then((text) => ({
             status: response.status,
             statusText: response.statusText,
             headers: response.headers,
@@ -32,6 +34,6 @@ export const fetchJson = (url, options = {}) => {
         });
 };
 
-export const queryParameters = data => Object.keys(data)
-    .map(key => [key, data[key]].map(encodeURIComponent).join('='))
+export const queryParameters = (data) => Object.keys(data)
+    .map((key) => [key, data[key]].map(encodeURIComponent).join('='))
     .join('&');

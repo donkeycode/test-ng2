@@ -1,49 +1,35 @@
-import { Component, AfterContentInit, ContentChildren, QueryList, ChangeDetectorRef, OnInit, Input } from '@angular/core';
-import { ColumnComponent } from './column.component';
-import { ActionComponent } from './action.component';
-import { GET_LIST } from '../data-providers/types';
+import {
+  Component, AfterContentInit, ContentChildren, QueryList, ChangeDetectorRef,
+  OnInit, Input
+} from '@angular/core';
+import { ColumnComponent, ActionComponent, GET_LIST, RestListConnectable } from '../core';
 import { Configurator } from '../configurator';
 
-import { RestListConnectable } from '../mixins';
-import { TraitDecorator } from '../util/mixins';
-
-@TraitDecorator(RestListConnectable)
 @Component({
-  selector: 'data-grid', 
+  selector: 'data-grid',
+  styleUrls: [ './data-grid.component.scss' ],
   templateUrl: './data-grid.component.html'
 })
-export class DataGridComponent implements AfterContentInit, OnInit {
-  @Input() private objects: string; //@Todo find a way to set it in mixins
+export class DataGridComponent extends RestListConnectable implements AfterContentInit {
 
-  @Input('api-url') private apiUrl: string;
+  @ContentChildren(ColumnComponent) protected cols: QueryList<ColumnComponent>;
 
-  @Input() private source;
-
-  @ContentChildren(ColumnComponent) private cols: QueryList<ColumnComponent>;
-
-  @ContentChildren(ActionComponent) private acts: QueryList<ActionComponent>;
-
-  public columns: ColumnComponent[];
-
-  public columnsSubscription;
-
-  public actions: ActionComponent[];
-
-  public actionsSubscription;
+  @ContentChildren(ActionComponent) protected acts: QueryList<ActionComponent>;
 
   constructor(public changeDetector: ChangeDetectorRef) {
+    super(changeDetector);
   }
 
-  public ngOnInit() {
-    this.connectRest();
-  }
+  public onColumnDragStart = () => undefined;
+  public onColumnDragover = () => undefined;
+  public onColumnDragleave = () => undefined;
+  public onColumnDrop = () => undefined;
+  public onFilerMousedown = () => undefined;
+  public onFilerKeydown = () => undefined;
+  public onHeaderMousedown = () => undefined;
+  public onHeaderKeydown = () => undefined;
 
-  public ngAfterContentInit() {
-    this.initColumns();
-    this.initActions();
-  }
-
-  private initColumns() {
+  public initColumns() {
     this.columns = this.cols.toArray();
 
     this.columnsSubscription = this.cols.changes.subscribe(() => {
@@ -52,16 +38,12 @@ export class DataGridComponent implements AfterContentInit, OnInit {
     });
   }
 
-  private initActions() {
+  public initActions() {
     this.actions = this.acts.toArray();
 
     this.actionsSubscription = this.acts.changes.subscribe(() => {
       this.initActions();
       this.changeDetector.markForCheck();
     });
-  }
-
-  public isSorted(col:ColumnComponent) {
-    return false;
   }
 }

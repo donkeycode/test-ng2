@@ -14,9 +14,10 @@ import {
 import { MockBackend } from '@angular/http/testing';
 
 // Load the implementations that should be tested
-import { AppState } from '../app.service';
-import { HomeComponent } from './home.component';
-import { Title } from './title';
+import { AppState } from '../app/app.service';
+import { HomeComponent } from '../app/home/home.component';
+import { Title } from '../app/home/title';
+
 
 describe(`Home`, () => {
   let comp: HomeComponent;
@@ -68,4 +69,9 @@ describe(`Home`, () => {
     expect(console.log).toHaveBeenCalled();
   });
 
+  it('should change page', () => {
+    // expect('>').toBe('>');
+    // //buttonNextPage.click();
+    // expect(comp).toBe('item num 10');
+  });
 });

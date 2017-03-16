@@ -1,39 +1,56 @@
 <div>
   <data-grid objects="books">
     <column mapped-on="title">
-      <template 
-        dg-template="header" 
-        let-column="column">
+      <template
+        dg-template="header"
+        let-column="element">
           {{ column.mappedOn }}
       </template>
 
-      <template 
-        dg-template="filter" 
-        let-column="column">
+      <template
+        dg-template="filter"
+        let-column="element">
           <span x-large>{{ column.mappedOn }}</span>
       </template>
 
-      <template 
-        dg-template="body" 
-        let-column="column"
+      <template
+        dg-template="body"
+        let-column="element"
         let-item="item">
-          {{ item | json }}
+          {{ item[column.mappedOn]}}
       </template>
     </column>
-    
+
     <column type="html" mapped-on="title"></column>
 
     <column type="hodor" mapped-on="title"></column>
+    <column type="boolean" mapped-on="actif"></column>
+    <column type="date" mapped-on="date"></column>
+    <column type="datetime" mapped-on="date"></column>
 
     <action type="edit"></action>
     <action type="delete"></action>
-    <action type="custom" confirm="Confirm your choice ?" [onAction]="doCustomAction"></action>
+    <action type="custom" confirm="Confirm your choice ?" (onAction)="doCustomAction($event)"></action>
 
   </data-grid>
 </div>
 
-
 <div>
   <cards-list objects="books">
+    <column type="default" mapped-on="title">
+    </column>
+    <column type="boolean" mapped-on="actif">
+    </column>
+    <card type="default">
+      <template
+        dg-template="card"
+        let-card="element"
+        let-item="item">
+          {{ item | json }}
+          baaaah
+      </template>
+    </card>
+    <action type="custom" confirm="Confirm your choice ?" (onAction)="doCustomAction($event)"></action>
+    <action type="edit"></action>
   </cards-list>
 </div>

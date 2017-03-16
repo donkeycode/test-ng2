@@ -9,7 +9,7 @@ import {
   Http
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { Title } from './title.service';
+import { Title } from '../app/home/title/title.service';
 
 describe('Title', () => {
   beforeEach(() => TestBed.configureTestingModule({

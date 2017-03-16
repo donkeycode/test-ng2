@@ -1,15 +1,36 @@
-# Templating for datas
+import paginationTemplate from './pagination-template.html';
+import cardFilterTemplate from './card-filter-template.html';
+export class TemplatesProvider {
 
-```` ts
-import { Templating } from './datagrid/dynamics/templates.provider';
+    public static get(elementType: string, part: string): Promise<any> {
+        return new Promise((res, rej) => {
+            if (!TemplatesProvider.templates[elementType]
+                || !TemplatesProvider.templates[elementType][part]) {
+                elementType = 'default'; // Fallback to default
+            }
 
-TemplatesProvider.set(columnType: string, part: string, code: string);
-TemplatesProvider.get(columnType: string, part: string): Promise<string>;
+            if (!TemplatesProvider.templates[elementType]
+              || !TemplatesProvider.templates[elementType][part]) {
+                return rej('No templates for elementType "' + elementType +
+                  '" and part "' + part + '"');
+            }
 
-// Examples
+            return res(TemplatesProvider.templates[elementType][part]);
+        });
+    }
 
-// Defaults templates
+    public static set(elementType: string, part: string, code: string, diOptions: {} = {}) {
+        if (!TemplatesProvider.templates[elementType]) {
+            TemplatesProvider.templates[elementType] = {};
+        }
 
+        TemplatesProvider.templates[elementType][part] = { template: code, diOptions };
+    }
+
+    private static templates = {};
+}
+
+// Register some templates
 TemplatesProvider.set('default', 'headerTemplate', '{{ element.translationKey }}');
 TemplatesProvider.set('default', 'bodyTemplate', '{{ item[element.mappedOn] }}');
 TemplatesProvider.set('default', 'filterTemplate',
@@ -20,8 +41,6 @@ TemplatesProvider.set('default', 'actionTemplate',
 TemplatesProvider.set('default', 'paginationTemplate', paginationTemplate);
 TemplatesProvider.set('default', 'cardTemplate', 'Bonjour'); // @TODO
 
-
-// Some others
 TemplatesProvider.set('html', 'bodyTemplate', '<div [innerHTML]=item[element.mappedOn]></div>');
 
 TemplatesProvider.set('boolean', 'filterTemplate',
@@ -45,4 +64,3 @@ TemplatesProvider.set('datetime', 'filterTemplate',
 TemplatesProvider.set('number', 'filterTemplate',
 `<input type="number" [name]="element.mappedOn"
 [ngModel]="" (ngModelChange)="parent.filter($event, element)"/>`);
-````
