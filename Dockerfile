@@ -1,3 +1,3 @@
 # Builds a Docker to deliver dist/
-FROM nginx:latest
+FROM nginx:1.19.9
 COPY dist/ /usr/share/nginx/html
